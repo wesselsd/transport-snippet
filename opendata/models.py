@@ -1,18 +1,18 @@
 import pydantic
-from typing import List
+from typing import List, Optional
 from datetime import datetime, date, time
 
 
 class Station(pydantic.BaseModel):
     id: int
-    name: str
+    name: Optional[str] = ""
 
 
 class Prognosis(pydantic.BaseModel):
     """ A prognosis contains "realtime" information on the
     status of a connection checkpoint. """
-    arrival: datetime
-    departure: datetime
+    arrival: Optional[datetime]
+    departure: Optional[datetime]
 
 
 class Stop(pydantic.BaseModel):
@@ -30,9 +30,10 @@ class Journey(pydantic.BaseModel):
     number: int  # tram number, like 13
     to: str
     stop: Stop
+    passList: List[Stop]
 
 
-class StationBoard(pydantic.BaseModel):
+class StationBoardResponse(pydantic.BaseModel):
     """
     The response of a stationboard query, as described here:
     https://transport.opendata.ch/docs.html#stationboard

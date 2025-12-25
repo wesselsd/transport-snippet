@@ -1,0 +1,4 @@
+tzdata
+pydantic
+requests
+pytest
