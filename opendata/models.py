@@ -41,3 +41,15 @@ class StationBoardResponse(pydantic.BaseModel):
 
     station: Station
     stationboard: List[Journey]
+
+
+class Location(pydantic.BaseModel):
+    name: str
+
+
+class LocationResponse(pydantic.BaseModel):
+    """
+    The response of a locations query, as described here:
+    https://transport.opendata.ch/docs.html#location
+    """
+    stations: list[Location]
