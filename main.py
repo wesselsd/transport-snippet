@@ -1,6 +1,8 @@
 import datetime
 import zoneinfo
 
+import pydantic
+
 from opendata import FakeClient, Journey, OpenDataClient, Client
 
 MAX_VALUE = 9999
@@ -51,7 +53,10 @@ def example2(client: Client):
     earliest = None
     earliest_station = None
     for location in locations:
-        stationboard = client.get_stationboard(location.name)
+        try:
+            stationboard = client.get_stationboard(location.name)
+        except pydantic.ValidationError:
+            continue
         current_arrival = stationboard.stationboard[0].stop.prognosis.arrival
         earliest_station = stationboard
         if earliest is None or earliest > current_arrival:
